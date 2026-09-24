@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fraend – Producer &amp; Content Creator</title>
+  <meta name="description" content="Musica, beat e video di Fraend. Ascolta su Spotify, scegli un beat nel beatstore, guarda i canali YouTube.">
+  <meta name="theme-color" content="#1b1030">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Token ---------- */
+    :root {
+      --plum: #1b1030;
+      --plum-deep: #120a22;
+      --bone: #f3ede4;
+      --bone-dim: rgba(243, 237, 228, .72);
+      --amber: #ffb020;
+      --line: rgba(243, 237, 228, .18);
+
+      --font-display: "Bricolage Grotesque", "Arial Narrow", Arial, sans-serif;
+      --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+      --pad: clamp(1.25rem, 5vw, 4rem);
+      --radius: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--plum);
+      color: var(--bone);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--pad);
+      padding-top: calc(var(--pad) + 5rem);
+      padding-left: max(var(--pad), env(safe-area-inset-left));
+      padding-right: max(var(--pad), env(safe-area-inset-right));
+      padding-bottom: max(var(--pad), env(safe-area-inset-bottom));
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--plum-deep);
+    }
+
+    .hero__video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    /* Velo viola: rende leggibile il testo su qualsiasi video */
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(to top, rgba(27, 16, 48, .94) 0%, rgba(27, 16, 48, .55) 45%, rgba(27, 16, 48, .25) 100%);
+    }
+
+    .hero__brand {
+      position: absolute;
+      top: max(var(--pad), env(safe-area-inset-top));
+      left: max(var(--pad), env(safe-area-inset-left));
+      right: max(var(--pad), env(safe-area-inset-right));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: .01em;
+    }
+    .hero__brand a { text-decoration: none; }
+
+    .hero__brand-link { display: inline-flex; align-items: center; }
+    .hero__brand-logo {
+      display: block;
+      height: clamp(0.98rem, 2.24vw, 1.4rem);
+      width: auto;
+    }
+
+
+    .hero__right { display: flex; align-items: center; gap: 1.5rem; }
+    .hero__social { display: flex; align-items: center; gap: .25rem; }
+    .hero__brand .hero__social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      color: var(--bone-dim);
+      transition: color .18s ease;
+    }
+    .hero__brand .hero__social a:hover { color: var(--bone); }
+    .hero__social svg { width: 1.4rem; height: 1.4rem; }
+
+    .hero__brand nav { display: flex; gap: 1.5rem; font-family: var(--font-body); font-weight: 500; font-size: .95rem; }
+    .hero__brand nav a { text-decoration: none; color: var(--bone-dim); }
+    .hero__brand nav a:hover { color: var(--bone); }
+
+
+    .hero__toggle {
+      position: absolute;
+      top: calc(max(var(--pad), env(safe-area-inset-top)) + 3rem);
+      right: max(var(--pad), env(safe-area-inset-right));
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem .9rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(27, 16, 48, .45);
+      backdrop-filter: blur(6px);
+      color: var(--bone);
+      font: 500 .875rem/1 var(--font-body);
+      cursor: pointer;
+    }
+    .hero__toggle:hover { background: rgba(27, 16, 48, .75); }
+
+    .hero__title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3.5rem, 15vw, 11.5rem);
+      line-height: .88;
+      letter-spacing: -.035em;
+      max-width: 14ch;
+      text-wrap: balance;
+    }
+
+
+    .hero__logo {
+      display: block;
+      width: clamp(15rem, 55vw, 38rem);
+      max-width: 100%;
+      max-height: 42svh;
+      height: auto;
+      object-fit: contain;
+      object-position: left bottom;
+    }
+
+    .hero__sub {
+      margin: clamp(1rem, 2.5vw, 1.75rem) 0 0;
+      max-width: 34rem;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: var(--bone-dim);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .85rem;
+      margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    /* ---------- Pulsanti ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .95rem 1.6rem;
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      font: 600 1rem/1 var(--font-body);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+    }
+    .btn svg { width: 1.3em; height: 1.3em; flex: none; }
+    .btn:active { transform: scale(.97); }
+
+    .btn--primary { background: var(--amber); color: var(--plum); }
+    .btn--primary:hover { background: #ffc24d; }
+
+
+    /* Spotify: sfumatura azzurra che scorre al passaggio del mouse */
+    .btn--spotify {
+      background: linear-gradient(110deg, #8fd8ff 0%, #5bbcff 35%, #bdeeff 70%, #8fd8ff 100%);
+      background-size: 250% 100%;
+      background-position: 0% 50%;
+      color: var(--plum);
+      transition: background-position .7s ease, box-shadow .3s ease, transform .18s ease;
+    }
+    .btn--spotify:hover,
+    .btn--spotify:focus-visible {
+      background-position: 100% 50%;
+      box-shadow: 0 6px 26px rgba(91, 188, 255, .45);
+    }
+
+
+    /* Beatstore: stessa animazione, sfumatura corallo */
+    .btn--beatstore {
+      background: linear-gradient(110deg, #ff9d7a 0%, #ff7f50 35%, #ffb89c 70%, #ff9d7a 100%);
+      background-size: 250% 100%;
+      background-position: 0% 50%;
+      color: var(--plum);
+      transition: background-position .7s ease, box-shadow .3s ease, transform .18s ease;
+    }
+    .btn--beatstore:hover,
+    .btn--beatstore:focus-visible {
+      background-position: 100% 50%;
+      box-shadow: 0 6px 26px rgba(255, 127, 80, .45);
+    }
+
+
+    /* YouTube: stessa animazione, rosso deciso */
+    .btn--youtube {
+      background: linear-gradient(110deg, #ff1a1a 0%, #cc0000 35%, #ff3232 70%, #ff1a1a 100%);
+      background-size: 250% 100%;
+      background-position: 0% 50%;
+      color: #fff;
+      transition: background-position .7s ease, box-shadow .3s ease, transform .18s ease;
+    }
+    .btn--youtube:hover,
+    .btn--youtube:focus-visible {
+      background-position: 100% 50%;
+      box-shadow: 0 6px 26px rgba(255, 0, 0, .45);
+    }
+
+    .btn--solid { background: var(--bone); color: var(--plum); }
+    .btn--solid:hover { background: #fff; }
+
+    .btn--ghost { border-color: var(--bone); color: var(--bone); background: rgba(27, 16, 48, .35); backdrop-filter: blur(6px); }
+    .btn--ghost:hover { background: var(--bone); color: var(--plum); }
+
+    /* ---------- Sezione link ---------- */
+    .links {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: clamp(4rem, 10vw, 8rem) var(--pad);
+      padding-left: max(var(--pad), env(safe-area-inset-left));
+      padding-right: max(var(--pad), env(safe-area-inset-right));
+      background: var(--plum);
+    }
+    .links__inner { max-width: 78rem; margin: 0 auto; }
+
+    /* Foto di sfondo sfuocata */
+    .links::before {
+      content: "";
+      position: absolute;
+      inset: -3rem;
+      z-index: -2;
+      background: url("media/fotofraendstudio.jpg") center / cover no-repeat;
+      filter: blur(10px);
+    }
+    /* Velo viola sopra la foto: tiene il testo leggibile */
+    .links::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(to bottom, rgba(27, 16, 48, .82), rgba(27, 16, 48, .68) 50%, rgba(27, 16, 48, .82));
+    }
+
+    .links__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+    .links__item { border-bottom: 1px solid var(--line); }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem 2rem;
+      align-items: center;
+      padding: clamp(1.5rem, 3.5vw, 2.5rem) 0;
+      text-decoration: none;
+      transition: padding-left .25s ease, color .2s ease;
+    }
+    .row:hover { padding-left: 1rem; color: var(--amber); }
+
+    .row__title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.75rem, 5vw, 3.25rem);
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .row__desc { grid-column: 1; margin: 0; max-width: 40rem; color: var(--bone-dim); }
+    .row__cta {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .row__cta svg { width: 1.4em; height: 1.4em; }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      padding: 2rem var(--pad) 3rem;
+      max-width: 78rem;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--bone-dim);
+      font-size: .95rem;
+    }
+    .footer { align-items: center; }
+
+    /* ---------- Responsive ---------- */
+    /* Schermi bassi (telefono in orizzontale) */
+    @media (max-height: 520px) and (orientation: landscape) {
+      .hero__logo { max-height: 26svh; }
+      .hero__sub { margin-top: .75rem; }
+      .hero__actions { margin-top: 1rem; }
+      .btn { padding: .75rem 1.25rem; }
+    }
+
+    @media (max-width: 640px) {
+      .hero__brand nav { display: none; }
+      .hero__actions { flex-direction: column; align-items: stretch; }
+      .btn { justify-content: center; padding: .9rem 1.25rem; }
+      .row { grid-template-columns: 1fr; }
+      .row__cta { grid-column: 1; grid-row: auto; }
+    }
+
+    /* Un solo momento di movimento: il titolo entra all'apertura */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero__title { animation: rise .9s cubic-bezier(.2, .7, .2, 1) both; }
+      @keyframes rise { from { opacity: 0; transform: translateY(28px); } }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero" id="home">
+    <!-- Video di sfondo: il file deve stare nella cartella "media" accanto a index.html -->
+    <video class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="media/spoti_canvas.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero__brand">
+      <a class="hero__brand-link" href="#home" aria-label="Fraend, torna in alto"><img class="hero__brand-logo" src="media/Fraend_trasparente.png" alt="Fraend"></a>
+      <div class="hero__right">
+        <nav aria-label="Navigazione principale">
+        <a href="#contatti">Contatti</a>
+      </nav>
+        <div class="hero__social">
+          <a href="https://www.instagram.com/fraendly/" target="_blank" rel="noopener" aria-label="Instagram di Fraend">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@fraendnocap" target="_blank" rel="noopener" aria-label="TikTok di Fraend">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <button class="hero__toggle" id="video-toggle" type="button" aria-label="Metti in pausa il video di sfondo">Pausa video</button>
+
+    <h1 class="hero__title"><img class="hero__logo" src="media/Fraend_trasparente.png" alt="Fraend"></h1>
+    <p class="hero__sub">Milan📍AVANTI TUTTA aka PRESENCE🧢<br>Rock/Emotional/Underground Music👇🏻<br>Producer /content creator</p>
+
+    <div class="hero__actions">
+      <!-- Sostituisci gli href con i tuoi link -->
+      <a class="btn btn--spotify" href="https://open.spotify.com/artist/2ilnsomh1DyBEHePI4Cobj?si=35bzYrXTRgyB9p2SmEd77A" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34a.75.75 0 0 1-1.03.25c-2.82-1.72-6.36-2.11-10.54-1.16a.75.75 0 1 1-.33-1.46c4.57-1.05 8.5-.6 11.65 1.34.36.22.47.68.25 1.03zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.23-1.98-8.15-2.56-11.97-1.4a.94.94 0 0 1-.55-1.8c4.36-1.32 9.78-.68 13.5 1.6.44.27.58.85.31 1.29zm.13-3.4C15.24 8.4 8.87 8.19 5.18 9.31a1.13 1.13 0 1 1-.66-2.16c4.23-1.28 11.27-1.04 15.72 1.6a1.13 1.13 0 0 1-1.16 1.94z"/></svg>
+        Ascolta su Spotify
+      </a>
+
+      <a class="btn btn--beatstore" href="https://player.beatstars.com/?storeId=143429" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Vai al beatstore
+      </a>
+
+      <a class="btn btn--youtube" href="https://www.youtube.com/@Fraend" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        YT Fraend
+      </a>
+
+      <a class="btn btn--youtube" href="https://www.youtube.com/@FraendBeats" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        YT Fraend beats
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="links" id="link" aria-label="Link a musica, beat e video">
+
+      <div class="links__inner">
+      <ul class="links__list">
+        <li class="links__item">
+          <a class="row" href="https://open.spotify.com/artist/2ilnsomh1DyBEHePI4Cobj?si=35bzYrXTRgyB9p2SmEd77A" target="_blank" rel="noopener">
+            <span class="row__title">Musica</span>
+            <p class="row__desc">Singoli, EP e produzioni per altri artisti, tutti su Spotify.</p>
+            <span class="row__cta">Ascolta <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li class="links__item">
+          <a class="row" href="https://player.beatstars.com/?storeId=143429" target="_blank" rel="noopener">
+            <span class="row__title">Beatstore</span>
+            <p class="row__desc">Beat pronti da usare, con licenza per il tuo prossimo progetto.</p>
+            <span class="row__cta">Scegli un beat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li class="links__item">
+          <a class="row" href="https://www.youtube.com/@Fraend" target="_blank" rel="noopener">
+            <span class="row__title">YT Fraend</span>
+            <p class="row__desc">Il canale con musica, visual e contenuti dietro le quinte.</p>
+            <span class="row__cta">Guarda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li class="links__item">
+          <a class="row" href="https://www.youtube.com/@FraendBeats" target="_blank" rel="noopener">
+            <span class="row__title">YT Fraend beats</span>
+            <p class="row__desc">Tutti i beats, con nuove uscite ogni settimana.</p>
+            <span class="row__cta">Ascolta i beat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+      </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contatti">
+    <span>&copy; <span id="anno">2026</span> Fraend</span>
+    <a class="btn btn--primary" href="mailto:fraendbeats@gmail.com">Contact me</a>
+  </footer>
+
+  <script>
+    // Anno aggiornato automaticamente
+    document.getElementById("anno").textContent = new Date().getFullYear();
+
+    // Video di sfondo: parte da solo (muto) e si può mettere in pausa
+    const video = document.querySelector(".hero__video");
+    const toggle = document.getElementById("video-toggle");
+
+    function setLabel() {
+      const playing = !video.paused;
+      toggle.textContent = playing ? "Pausa video" : "Riproduci video";
+      toggle.setAttribute("aria-label", playing ? "Metti in pausa il video di sfondo" : "Riproduci il video di sfondo");
+    }
+
+    video.muted = true;
+    video.play().catch(() => {});
+    video.addEventListener("play", setLabel);
+    video.addEventListener("pause", setLabel);
+    toggle.addEventListener("click", () => {
+      if (video.paused) { video.play(); } else { video.pause(); }
+    });
+    setLabel();
+  </script>
+</body>
+</html>

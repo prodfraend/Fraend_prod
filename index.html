@@ -239,6 +239,21 @@
       box-shadow: 0 6px 26px rgba(255, 0, 0, .45);
     }
 
+
+    /* Invia la tua musica: stessa animazione, sfumatura lilla/oro */
+    .btn--send {
+      background: linear-gradient(110deg, #e8c9ff 0%, #ffd67a 35%, #f3d9ff 70%, #e8c9ff 100%);
+      background-size: 250% 100%;
+      background-position: 0% 50%;
+      color: var(--plum);
+      transition: background-position .7s ease, box-shadow .3s ease, transform .18s ease;
+    }
+    .btn--send:hover,
+    .btn--send:focus-visible {
+      background-position: 100% 50%;
+      box-shadow: 0 6px 26px rgba(232, 201, 255, .45);
+    }
+
     .btn--solid { background: var(--bone); color: var(--plum); }
     .btn--solid:hover { background: #fff; }
 
@@ -397,6 +412,11 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
         YT Fraend beats
       </a>
+
+      <a class="btn btn--send" href="https://auxchord.app/@fraend/live" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+        Invia la tua musica
+      </a>
     </div>
   </header>
 
@@ -431,6 +451,13 @@
             <span class="row__title">YT Fraend beats</span>
             <p class="row__desc">Tutti i beats, con nuove uscite ogni settimana.</p>
             <span class="row__cta">Ascolta i beat <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </li>
+        <li class="links__item">
+          <a class="row" href="https://auxchord.app/@fraend/live" target="_blank" rel="noopener">
+            <span class="row__title">Invia la tua musica</span>
+            <p class="row__desc">Mandami un brano e ricevi un feedback diretto.</p>
+            <span class="row__cta">Invia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </a>
         </li>
       </ul>
